@@ -16,7 +16,8 @@ export default class CarService implements IService<ICar, Car> {
   }
 
   async readAll(): Promise<Car[]> {
-    throw new Error(MESSAGE);
+    const cars = await this.odm.find();
+    return cars.map((car) => new Car(car));
   }
 
   async readById(_id: string): Promise<Car> {
@@ -37,7 +38,7 @@ export default class CarService implements IService<ICar, Car> {
         throw new BodyNotFound('Body not found Vehicle');
       }
     }
-    
+
     function isValidCar(car: ICar): void {
       if (!car.doorsQty || !car.seatsQty) throw new BodyNotFound('Body not found Car');
     }

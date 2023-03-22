@@ -15,9 +15,16 @@ export default class CarController extends AbstractController<IService<ICar, Car
     return res.status(201).json(result);
   }
 
+  private async readAll(req: Request, res: Response): Promise<Response> {
+    const result = await this.service.readAll();
+    return res.status(200).json(result);
+  }
+
   initRoutes(): Router {
     this.router
-      .post('/cars', this.service.isValidBody, (req, res) => this.create(req, res));
+      .post('/cars', this.service.isValidBody, (req, res) => this.create(req, res))
+      .get('/cars', (req, res) => this.readAll(req, res));
+      
     return this.router;
   }
 }
