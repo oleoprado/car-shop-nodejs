@@ -13,7 +13,7 @@ export default class Vehicle {
     this.model = vehicle.model;
     this.year = vehicle.year;
     this.color = vehicle.color;
-    this.status = vehicle.status;
+    this.status = vehicle.status || false;
     this.buyValue = vehicle.buyValue;
   }
 }
