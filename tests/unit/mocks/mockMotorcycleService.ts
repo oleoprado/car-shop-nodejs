@@ -25,6 +25,17 @@ const outputMotorcycle: Motorcycle = new Motorcycle({
   engineCapacity: 600,
 });
 
+const outputReadAllMotorcycle: Motorcycle[] = [new Motorcycle({
+  id: '6348513f34c397abcad040b2',
+  model: HONDA_CB,
+  year: 2005,
+  color: 'Yellow',
+  status: true,
+  buyValue: 30.000,
+  category: 'Street',
+  engineCapacity: 600,
+})];
+
 const reqMock = {
   body: {
     model: HONDA_CB,
@@ -54,10 +65,14 @@ const reqInvalidMotoMock = {
   },
 } as Request;
 
+const validIdMotoMock = '6348513f34c397abcad040b2';
+
 export {
   inputMotorcycle,
   outputMotorcycle,
   reqMock,
   reqInvalidVehicleMock,
   reqInvalidMotoMock,
+  outputReadAllMotorcycle,
+  validIdMotoMock,
 };

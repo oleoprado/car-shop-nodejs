@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Motorcycle from '../Domains/Motorcycle';
 import BodyNotFound from '../Errors/BodyNotFound';
+import NotFoundError from '../Errors/NotFoundError';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import IService from '../Interfaces/IService';
 import MotorcycleODM from '../Models/MotorcycleODM';
@@ -16,11 +17,15 @@ export default class MotorcycleService implements IService<IMotorcycle, Motorcyc
   }
 
   async readAll(): Promise<Motorcycle[]> {
-    throw new Error(METHOD_NOT_IMPLEMENTED);
+    const motorcycles = await this.odm.find();
+    return motorcycles.map((moto) => new Motorcycle(moto));
   }
 
-  async readById(_id: string): Promise<Motorcycle> {
-    throw new Error(METHOD_NOT_IMPLEMENTED);
+  async readById(id: string): Promise<Motorcycle> {
+    const motorcycle = await this.odm.findById(id);
+    if (!motorcycle) throw new NotFoundError('Motorcycle not found');
+
+    return new Motorcycle(motorcycle);
   }
 
   async update(_id: string, _dto: IMotorcycle): Promise<Motorcycle> {

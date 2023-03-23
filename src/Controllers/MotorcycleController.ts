@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import Motorcycle from '../Domains/Motorcycle';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import IService from '../Interfaces/IService';
@@ -15,9 +15,29 @@ class MotorcycleController extends AbstractController<IService<IMotorcycle, Moto
     return res.status(201).json(result);
   }
 
+  private async readAll(req: Request, res: Response): Promise<Response> {
+    const result = await this.service.readAll();
+    return res.status(200).json(result);
+  }
+
+  private async readById(
+    req: Request, 
+    res: Response, 
+    next: NextFunction,
+  ): Promise<Response | undefined> {
+    try {
+      const result = await this.service.readById(req.params.id);
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   initRoutes(): Router {
     this.router
-      .post('/motorcycles', this.service.isValidBody, (req, res) => this.create(req, res));
+      .post('/motorcycles', this.service.isValidBody, (req, res) => this.create(req, res))
+      .get('/motorcycles', (req, res) => this.readAll(req, res))
+      .get('/motorcycles/:id', (req, res, next) => this.readById(req, res, next));
     
     return this.router;
   }
