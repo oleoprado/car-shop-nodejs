@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 
 import CarService from '../../../src/Services/CarService';
-import { outputCar, validIdCar } from '../mockService/mockService';
+import { outputCar, validIdCar } from '../mocks/mockService';
 
 describe('Teste de serviço: Read car por ID', function () {
   afterEach(function () {

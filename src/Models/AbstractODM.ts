@@ -30,7 +30,7 @@ export default abstract class AbstractODM<T> {
     if (!isValidObjectId(id)) throw new IdInvalidError('Invalid mongo id');
 
     return this.model.findByIdAndUpdate(
-      { id },
+      id,
       { ...dto },
       { new: true },
     );
