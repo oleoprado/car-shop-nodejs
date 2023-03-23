@@ -8,7 +8,7 @@ import {
   inputCar, 
   idNotFound, 
   invalidId,
-} from '../mocks/mockService';
+} from '../mocks/mockCarService';
 
 describe('Teste de serviço: Update car por ID', function () {
   beforeEach(function () {

@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import Car from '../../../src/Domains/Car';
 import ICar from '../../../src/Interfaces/ICar';
 
@@ -48,6 +49,35 @@ const outputUpdatedCar: Car = new Car({
   seatsQty: 5,
 });
 
+const reqMock = {
+  body: {
+    model: 'Marea',
+    year: 1992,
+    color: 'Black',
+    status: true,
+    buyValue: 10.990,
+    doorsQty: 2,
+    seatsQty: 5,
+  },
+} as Request;
+
+const reqInvalidVehicleMock = {
+  body: {
+    doorsQty: 2,
+    seatsQty: 5,
+  },
+} as Request;
+
+const reqInvalidMotoMock = {
+  body: {
+    model: 'Marea',
+    year: 1992,
+    color: 'Black',
+    status: true,
+    buyValue: 10.990,
+  },
+} as Request;
+
 export {
   inputCar,
   outputCar,
@@ -56,4 +86,7 @@ export {
   idNotFound,
   invalidId,
   outputUpdatedCar,
+  reqMock,
+  reqInvalidVehicleMock,
+  reqInvalidMotoMock,
 };

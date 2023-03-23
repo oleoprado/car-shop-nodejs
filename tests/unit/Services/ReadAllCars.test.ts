@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 
 import CarService from '../../../src/Services/CarService';
-import { outputReadAll } from '../mocks/mockService';
+import { outputReadAll } from '../mocks/mockCarService';
 
 describe('Teste de serviço: Read all cars', function () {
   it('Deve ler uma lista com 1 car', async function () {
@@ -14,5 +14,6 @@ describe('Teste de serviço: Read all cars', function () {
 
     expect(result.length).to.be.equal(1);
     expect(result).to.be.deep.equal(outputReadAll);
+    sinon.restore();
   });
 });
