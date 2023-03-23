@@ -5,6 +5,8 @@ import IService from '../Interfaces/IService';
 import MotorcycleService from '../Services/MotorcycleService';
 import AbstractController from './AbstractController';
 
+const ENDPOINT_MOTORCYCLE_ID = '/motorcycles/:id';
+
 class MotorcycleController extends AbstractController<IService<IMotorcycle, Motorcycle>> {
   constructor() {
     super(new MotorcycleService());
@@ -46,6 +48,19 @@ class MotorcycleController extends AbstractController<IService<IMotorcycle, Moto
     }
   }
 
+  private async delete(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) : Promise<Response | undefined> {
+    try {
+      await this.service.delete(req.params.id);
+      return res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+
   initRoutes(): Router {
     this.router
       .post(
@@ -58,13 +73,17 @@ class MotorcycleController extends AbstractController<IService<IMotorcycle, Moto
         (req, res) => this.readAll(req, res),
       )
       .get(
-        '/motorcycles/:id', 
+        ENDPOINT_MOTORCYCLE_ID, 
         (req, res, next) => this.readById(req, res, next),
       )
       .put(
-        '/motorcycles/:id', 
+        ENDPOINT_MOTORCYCLE_ID, 
         this.service.isValidBody, 
         (req, res, next) => this.update(req, res, next),
+      )
+      .delete(
+        ENDPOINT_MOTORCYCLE_ID,
+        (req, res, next) => this.delete(req, res, next),
       );
     
     return this.router;

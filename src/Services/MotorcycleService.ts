@@ -6,7 +6,7 @@ import IMotorcycle from '../Interfaces/IMotorcycle';
 import IService from '../Interfaces/IService';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
-const METHOD_NOT_IMPLEMENTED = 'Method not implemented.';
+const MOTO_NOT_FOUND = 'Motorcycle not found';
 
 export default class MotorcycleService implements IService<IMotorcycle, Motorcycle> {
   protected odm: MotorcycleODM = new MotorcycleODM();
@@ -23,20 +23,23 @@ export default class MotorcycleService implements IService<IMotorcycle, Motorcyc
 
   async readById(id: string): Promise<Motorcycle> {
     const motorcycle = await this.odm.findById(id);
-    if (!motorcycle) throw new NotFoundError('Motorcycle not found');
+    if (!motorcycle) throw new NotFoundError(MOTO_NOT_FOUND);
 
     return new Motorcycle(motorcycle);
   }
 
   async update(id: string, dto: IMotorcycle): Promise<Motorcycle> {
     const motorcycle = await this.odm.update(id, dto);
-    if (!motorcycle) throw new NotFoundError('Motorcycle not found');
+    if (!motorcycle) throw new NotFoundError(MOTO_NOT_FOUND);
 
     return new Motorcycle(motorcycle);
   }
 
-  async delete(_id: string): Promise<void> {
-    throw new Error(METHOD_NOT_IMPLEMENTED);
+  async delete(id: string): Promise<void> {
+    const motorcycle = await this.readById(id);
+    if (!motorcycle) throw new NotFoundError(MOTO_NOT_FOUND);
+    
+    await this.odm.delete(id);
   }
 
   isValidBody(req: Request, res: Response, next: NextFunction): void {

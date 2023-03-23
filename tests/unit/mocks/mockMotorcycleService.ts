@@ -15,7 +15,7 @@ const inputMotorcycle: IMotorcycle = {
 };
 
 const outputMotorcycle: Motorcycle = new Motorcycle({
-  id: '6348513f34c397abcad040b2',
+  id: '641c96234ecf326402316d3c',
   model: HONDA_CB,
   year: 2005,
   color: 'Yellow',
@@ -65,7 +65,7 @@ const reqInvalidMotoMock = {
   },
 } as Request;
 
-const validIdMotoMock = '641c50e21c087cc5d3493462';
+const validIdMotoMock = '641c96234ecf326402316d3c';
 const invalidIdMotoMock = '6348513f34c397abcad040b8';
 const invalidFormatIdMotoMock = '6348513f34c397abcad04420LEO';
 
