@@ -1,4 +1,4 @@
-import Car from "../../../src/Domains/Car";
+import Car from '../../../src/Domains/Car';
 
 const inputCreateCar = {
   model: 'Marea',
@@ -10,7 +10,7 @@ const inputCreateCar = {
   seatsQty: 5,
 };
 
-const outputCreateCar = {
+const outputCar = {
   id: '6348513f34c397abcad040b2',
   model: 'Marea',
   year: 2002,
@@ -32,8 +32,11 @@ const outputReadAll: Car[] = [new Car({
   seatsQty: 5,
 })];
 
+const validIdCar = '6348513f34c397abcad040b2';
+
 export {
   inputCreateCar,
-  outputCreateCar,
+  outputCar,
   outputReadAll,
+  validIdCar,
 };

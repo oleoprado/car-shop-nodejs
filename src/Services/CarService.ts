@@ -4,6 +4,7 @@ import ICar from '../Interfaces/ICar';
 import IService from '../Interfaces/IService';
 import CarODM from '../Models/CarODM';
 import BodyNotFound from '../Errors/BodyNotFound';
+import NotFoundError from '../Errors/NotFoundError';
 
 const MESSAGE = 'Method not implemented.';
 
@@ -20,8 +21,11 @@ export default class CarService implements IService<ICar, Car> {
     return cars.map((car) => new Car(car));
   }
 
-  async readById(_id: string): Promise<Car> {
-    throw new Error(MESSAGE);
+  async readById(id: string): Promise<Car> {
+    const car = await this.odm.findById(id);    
+    if (!car) throw new NotFoundError('Car not found');
+
+    return new Car(car);
   }
 
   async update(_id: string, _dto: ICar): Promise<Car> {
@@ -33,7 +37,7 @@ export default class CarService implements IService<ICar, Car> {
   }
 
   isValidBody(req: Request, _res: Response, next: NextFunction): void {
-    function isValidVehicle(car: ICar): void {
+    function isValidVehicle(car: ICar) {
       if (!car.model || !car.year || !car.color || !car.buyValue) {
         throw new BodyNotFound('Body not found Vehicle');
       }

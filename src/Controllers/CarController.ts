@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import IService from '../Interfaces/IService';
@@ -20,10 +20,24 @@ export default class CarController extends AbstractController<IService<ICar, Car
     return res.status(200).json(result);
   }
 
+  private async readById(
+    req: Request, 
+    res: Response, 
+    next: NextFunction,
+  ): Promise<Response | undefined> {
+    try {
+      const result = await this.service.readById(req.params.id);
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   initRoutes(): Router {
     this.router
       .post('/cars', this.service.isValidBody, (req, res) => this.create(req, res))
-      .get('/cars', (req, res) => this.readAll(req, res));
+      .get('/cars', (req, res) => this.readAll(req, res))
+      .get('/cars/:id', (req, res, next) => this.readById(req, res, next));
       
     return this.router;
   }

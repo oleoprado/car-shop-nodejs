@@ -8,7 +8,7 @@ export default class ErrorHandler {
     _next: NextFunction,
   ) {
     if (err instanceof Error && err.stack) {
-      return res.status(parseInt(err.stack, 10)).json({ message: err.stack });
+      return res.status(parseInt(err.stack, 10)).json({ message: err.message });
     }
     return res.status(500).json({ message: err.message });
   }
