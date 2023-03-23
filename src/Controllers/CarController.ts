@@ -47,12 +47,26 @@ export default class CarController extends AbstractController<IService<ICar, Car
     }
   }
 
+  private async delete(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const result = await this.service.delete(req.params.id);
+      return res.status(204).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   initRoutes(): Router {
     this.router
       .post('/cars', this.service.isValidBody, (req, res) => this.create(req, res))
       .get('/cars', (req, res) => this.readAll(req, res))
       .get('/cars/:id', (req, res, next) => this.readById(req, res, next))
-      .put('/cars/:id', this.service.isValidBody, (req, res, next) => this.update(req, res, next));
+      .put('/cars/:id', this.service.isValidBody, (req, res, next) => this.update(req, res, next))
+      .delete('/cars/:id', (req, res, next) => this.delete(req, res, next));
       
     return this.router;
   }
