@@ -28,8 +28,11 @@ export default class MotorcycleService implements IService<IMotorcycle, Motorcyc
     return new Motorcycle(motorcycle);
   }
 
-  async update(_id: string, _dto: IMotorcycle): Promise<Motorcycle> {
-    throw new Error('Method not implemented.');
+  async update(id: string, dto: IMotorcycle): Promise<Motorcycle> {
+    const motorcycle = await this.odm.update(id, dto);
+    if (!motorcycle) throw new NotFoundError('Motorcycle not found');
+
+    return new Motorcycle(motorcycle);
   }
 
   async delete(_id: string): Promise<void> {

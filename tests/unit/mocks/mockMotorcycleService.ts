@@ -65,7 +65,9 @@ const reqInvalidMotoMock = {
   },
 } as Request;
 
-const validIdMotoMock = '6348513f34c397abcad040b2';
+const validIdMotoMock = '641c50e21c087cc5d3493462';
+const invalidIdMotoMock = '6348513f34c397abcad040b8';
+const invalidFormatIdMotoMock = '6348513f34c397abcad04420LEO';
 
 export {
   inputMotorcycle,
@@ -75,4 +77,6 @@ export {
   reqInvalidMotoMock,
   outputReadAllMotorcycle,
   validIdMotoMock,
+  invalidIdMotoMock,
+  invalidFormatIdMotoMock,
 };
