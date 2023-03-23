@@ -3,7 +3,6 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import CarService from '../../../src/Services/CarService';
 import { validIdCar, outputCar, idNotFound, invalidId } from '../mocks/mockCarService';
-import NotFoundError from '../../../src/Errors/NotFoundError';
 
 describe('Teste de serviço: Delete um car', function () {
   beforeEach(function () {
