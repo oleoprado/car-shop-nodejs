@@ -1,6 +1,7 @@
 <!-- # :construction: README em construção ! :construction: -->
-<div align="center">
-<h1>Car Shop</h1>
+<div>
+<div align="center" style="margin-bottom: 1.5rem;">
+<h1 style="padding: 2rem 0;">Car Shop</h1>
 
 
 <!-- BADGES W/ LINK (see https://shields.io/)-->
@@ -9,25 +10,28 @@
 
 <!-- DESCRIPTION -->
 <p>
-Este projeto consiste em uma REST API com CRUD (create, read, update, delete), que simula o gerenciamento de uma concessionária de veículos. É possível criar, ler, atualizar e excluir carros e motos no banco de dados não relacional MongoDB, utilizando a ODM Mongoose para a manipulação dos dados.
+Este projeto consiste em uma <em>REST API</em> com <strong>CRUD</strong> (create, read, update, delete), que simula o gerenciamento de uma concessionária de veículos. É possível criar, ler, atualizar e excluir carros e motos no banco de dados não relacional <strong>MongoDB</strong>, utilizando a ODM <strong>Mongoose</strong> para a manipulação dos dados.
 </p>
 <p>
-foram utilizados conceitos de Docker para a criação de containers, a arquitetura de código seguindo o modelo MSC, além de POO e TypeScript para garantir a robustez do projeto e o SOLID para manter a boa escrita e manutenibilidade do código.
+Foram utilizados conceitos de <strong>Docker</strong> para a criação de containers, a arquitetura de código seguindo o modelo MSC, além de <strong>POO</strong> e <strong>TypeScript</strong> para garantir a robustez do projeto e o <strong>SOLID</strong> para manter a boa escrita e manutenibilidade do código.
 </p>
 <p>
-Para garantir a qualidade e confiabilidade da API, foi utilizada a metodologia de TDD (Test Driven Development) em todo o desenvolvimento. Todos os testes unitários foram executados durante o processo de implementação, permitindo uma rápida identificação e correção de eventuais erros ou bugs, bem como uma maior segurança na evolução do código.
+Para garantir a qualidade e confiabilidade da <strong>API</strong>, foi utilizada a metodologia de <strong>TDD</strong> <em>(Test Driven Development)</em> em todo o desenvolvimento. Todos os testes unitários foram executados durante o processo de implementação, permitindo uma rápida identificação e correção de eventuais erros ou bugs, bem como uma maior segurança na evolução do código.
 </p>
 
+---
 
 <!-- INSTALLATION AND USAGE -->
 
-## ⚙️ Instalação e Uso
+<h2 style="padding: 1rem 0;"> ⚙️ Instalação e Uso </h2>
 
 Você precisa ter o [node](https://nodejs.org/en/download/) instalado em seu computador para executar este projeto. Este projeto foi criado usando a versão `v16.15.1.`
 
 Você precisa ter o [docker](https://www.docker.com/products/docker-desktop/) e o [docker compose cli](https://www.docker.com/products/docker-desktop/) instalados em seu computador para executar este projeto. Este projeto foi criado usando as versões `v20.10` e `v1.29` respectivas.
 
 Para executar esta aplicação, você precisa fazer o clone para seu computador:
+
+<div style="padding: 1rem 0;">
 
 ```bash
 git clone git@github.com:oleoprado/car-shop-nodejs.git
@@ -81,9 +85,11 @@ Para rodar os testes de cobertura da camada service:
 ```bash
 npm run test:coverage
 ```
+</div>
+
 ---
 
-## ⚙️ Utilização
+<h2 style="padding: 1rem 0;">💻 Utilização</h2>
 
 Com o servidor iniciado, você poderá utilizar a API para simular o gerenciamento dos dados da concessionária de veículos. Para isso, utilize uma ferramenta para requisições `HTTP`, como o **Postman** ou o **Insomnia**.
 
@@ -120,13 +126,14 @@ Exemplo para criar uma nova moto:
 
 <!-- CONTACT -->
 
-## ✉️ Contato
+<h2 style="padding: 1rem 0;"> ✉️ Contato</h2>
 
 [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/oleoprado/) ![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)
 
 
 <!-- LICENSE -->
 
-## 📝 Licença
+<h2 style="padding: 1rem 0;">  📝 Licença</h2>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+</div>
