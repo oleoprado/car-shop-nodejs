@@ -3,60 +3,43 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import CarService from '../../../src/Services/CarService';
 import { validIdCar, outputCar, idNotFound, invalidId } from '../mocks/mockCarService';
+import NotFoundError from '../../../src/Errors/NotFoundError';
+import IdInvalidError from '../../../src/Errors/IdInvalidError';
 
 describe('Teste de serviço: Delete um car', function () {
   beforeEach(function () {
-    sinon.stub();
+    sinon.restore();
   });
 
   it('Deve deletar um carro com sucesso', async function () {
-    let result = false;
-
-    try {
-      sinon.stub(Model, 'findById').resolves(outputCar);
-      sinon.stub(Model, 'deleteOne').resolves();
-
-      const service = new CarService();
-      await service.delete(validIdCar);
-
-      result = true;
-    } catch (error) {
-      result = false;
-    }
-    expect(result).to.be.equal(true);
+    sinon.stub(Model, 'findById').resolves(outputCar);
+    const deleteOneStub = sinon.stub(Model, 'deleteOne').resolves();
+  
+    const service = new CarService();
+    await service.delete(validIdCar);
+  
+    sinon.assert.calledWith(deleteOneStub, { id: validIdCar });
   });
 
   it('Deve retornar "Car not found" quando o ID não existir', async function () {
-    let result;
-
+    sinon.stub(Model, 'findById').resolves(null);
     try {
-      sinon.stub(Model, 'findById').resolves(null);
-      sinon.stub(Model, 'deleteOne').resolves();
-
       const service = new CarService();
       await service.delete(idNotFound);
-      
-      result = true;
     } catch (error) {
-      result = false;
+      expect(error).to.be.instanceOf(NotFoundError);
+      expect((error as Error).message).to.equal('Car not found');
     }
-    expect(result).to.be.equal(false);
   });
 
   it('Deve retornar "Invalid mongo id" quando o ID não for válido', async function () {
-    let result;
-
+    sinon.stub(Model, 'findById').resolves(null);
     try {
-      sinon.stub(Model, 'findById').resolves(null);
-      sinon.stub(Model, 'deleteOne').resolves();
-
       const service = new CarService();
       await service.delete(invalidId);
-      
-      result = true;
     } catch (error) {
-      result = false;
+      expect(error).to.be.instanceOf(IdInvalidError);
+      expect((error as Error).message).to.equal('Invalid mongo id');
     }
-    expect(result).to.be.equal(false);
   });
 });

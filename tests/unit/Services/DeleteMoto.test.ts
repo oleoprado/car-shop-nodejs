@@ -8,59 +8,43 @@ import {
   invalidIdMotoMock, 
   invalidFormatIdMotoMock, 
 } from '../mocks/mockMotorcycleService';
+import NotFoundError from '../../../src/Errors/NotFoundError';
+import IdInvalidError from '../../../src/Errors/IdInvalidError';
 
 describe('Teste de serviço: Delete um motorcycle', function () {
   beforeEach(function () {
-    sinon.stub();
+    sinon.restore();
   });
 
   it('Deve deletar um motorcycle com sucesso', async function () {
-    try {
-      sinon.stub(Model, 'findById').resolves(outputMotorcycle);
-      sinon.stub(Model, 'deleteOne').resolves();
+    sinon.stub(Model, 'findById').resolves(outputMotorcycle);
+    const deleteOneStub = sinon.stub(Model, 'deleteOne').resolves();
   
-      const service = new MotorcycleService();
-      await service.delete(validIdMotoMock);
+    const service = new MotorcycleService();
+    await service.delete(validIdMotoMock);
   
-      const result = true;
-      expect(result).to.be.equal(true);
-    } catch (error) {
-      const result = false;
-      expect(result).to.be.equal(false);
-    }
+    sinon.assert.calledWith(deleteOneStub, { id: validIdMotoMock });
   });
 
   it('Deve retornar "Motorcycle not found" quando o ID não existir', async function () {
-    let result;
-
+    sinon.stub(Model, 'findById').resolves(null);
     try {
-      sinon.stub(Model, 'findById').resolves(null);
-      sinon.stub(Model, 'deleteOne').resolves();
-
       const service = new MotorcycleService();
       await service.delete(invalidIdMotoMock);
-      
-      result = true;
     } catch (error) {
-      result = false;
+      expect(error).to.be.instanceOf(NotFoundError);
+      expect((error as Error).message).to.equal('Motorcycle not found');
     }
-    expect(result).to.be.equal(false);
   });
 
   it('Deve retornar "Invalid mongo id" quando o ID não for válido', async function () {
-    let result;
-
+    sinon.stub(Model, 'findById').resolves(null);
     try {
-      sinon.stub(Model, 'findById').resolves(null);
-      sinon.stub(Model, 'deleteOne').resolves();
-
       const service = new MotorcycleService();
       await service.delete(invalidFormatIdMotoMock);
-      
-      result = true;
     } catch (error) {
-      result = false;
+      expect(error).to.be.instanceOf(IdInvalidError);
+      expect((error as Error).message).to.equal('Invalid mongo id');
     }
-    expect(result).to.be.equal(false);
   });
 });
